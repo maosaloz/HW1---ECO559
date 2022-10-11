@@ -225,3 +225,8 @@ housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" 
 housing$post <- substr(housing$codeinsee,start = 1,stop=2)  
 housing$tstop[(housing$post==75)]<-1
 housing$post <- NULL
+
+model5 <- lm(price~distance+size+nb_rooms+tstop, data = housing)
+summary(model5)
+model6 <- lm(logprice~distance+size+nb_rooms+tstop, data=housing)
+summary(model6)
