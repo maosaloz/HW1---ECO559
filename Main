@@ -165,12 +165,13 @@ summary(model4)
 # Exercise 5
 ###################################################################################
 
+# RER A
 housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
                           housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
                           housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
                           housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
                           housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="94080" | housing$codeinsee=="94033" | housing$codeinsee=="94052" |
                           housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
                           housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
                           housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
@@ -178,3 +179,64 @@ housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" 
                           housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
                           housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
                           housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |, 1, 0)
+                          
+  RER B 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
+                          housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
+                          housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
+                          housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
+                          housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
+                          housing$codeinsee=="94080" | housing$codeinsee=="94033" | housing$codeinsee=="94052" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |,                       
+
+
+  RER C 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
+                          housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
+                          housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
+                          housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
+                          housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
+                          housing$codeinsee=="94080" | housing$codeinsee=="94033" | housing$codeinsee=="94052" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |,  
+                          
+RER D 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
+                          housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
+                          housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
+                          housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
+                          housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
+                          housing$codeinsee=="94080" | housing$codeinsee=="94033" | housing$codeinsee=="94052" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |,  
+
+  RER E 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
+                          housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
+                          housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
+                          housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
+                          housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
+                          housing$codeinsee=="94080" | housing$codeinsee=="94033" | housing$codeinsee=="94052" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |,  
