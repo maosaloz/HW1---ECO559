@@ -172,13 +172,12 @@ housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" 
                           housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
                           housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
                           housing$codeinsee=="94080" | housing$codeinsee=="94033" | housing$codeinsee=="94052" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
-                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |, 1, 0)
+                          housing$codeinsee=="94042" | housing$codeinsee=="94068" | housing$codeinsee=="94071" |
+                          housing$codeinsee=="94004" | housing$codeinsee=="94033" | housing$codeinsee=="93049" |
+                          housing$codeinsee=="94015" | housing$codeinsee=="93051" | housing$codeinsee=="77083" |
+                          housing$codeinsee=="77337" | housing$codeinsee=="77258" | housing$codeinsee=="77468" |
+                          housing$codeinsee=="77058" | housing$codeinsee=="77307" | housing$codeinsee=="77449" |
+                          housing$codeinsee=="77111" | 
                           
   RER B 
                           housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
