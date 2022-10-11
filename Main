@@ -1,0 +1,180 @@
+
+                                ### Homework 1 ###
+
+#Install Packages 
+install.packages("haven")
+install.packages("tidyverse")
+install.packages("ggplot")
+install.packages("maps")
+install.packages("EnvStats")
+install.packages("lmtest")
+
+library(haven)
+library(tidyverse)
+library(maps)
+library(ggplot2)
+library(EnvStats)
+library(lmtest)
+
+
+# Download File 
+housing_price_paris_region <- read_dta("housing_price_paris_region.dta")
+housing <- housing_price_paris_region
+rm(housing_price_paris_region)
+
+
+###################################################################################
+# Exercise 1 
+###################################################################################
+
+# Non-logged regression
+model1 <- lm(price~distance, data = housing)
+summary(model1)
+model2 <- lm(price~distance+size+nb_rooms, data = housing)
+summary(model2)
+
+# Logging housing price 
+housing$logprice <- log(housing$price)
+housing$logprice <- as.numeric(housing$logprice)
+housing$logprice[is.infinite(housing$logprice)]<-NA
+
+# Logged Regressions
+model3 <- lm(logprice~distance, data = housing)
+summary(model3)
+model4 <- lm(logprice~distance+size+nb_rooms, data=housing)
+summary(model4)
+rm(model1, model2, model3, model4)
+
+
+###################################################################################
+# Exercise 2 
+###################################################################################
+
+# seperating date variable 
+housing <- separate(housing, date, into = c('year', 'month', 'day'))
+
+# creating seasons variable
+housing$seasonality[(housing$month==12 | housing$month=="01" | housing$month=="02")] <- "Winter"
+housing$seasonality[(housing$month=="03" | housing$month=="04" | housing$month=="05")] <- "Spring"
+housing$seasonality[(housing$month=="06" | housing$month=="07" | housing$month=="08")] <- "Summer"
+housing$seasonality[(housing$month=="09" | housing$month==10 | housing$month==11)] <- "Autumn"
+
+
+#creating number of rooms variable 
+housing$one_room <- ifelse(housing$nb_rooms==1, 1, 0)
+housing$two_room <- ifelse(housing$nb_rooms==2, 1, 0)
+housing$three_room <- ifelse(housing$nb_rooms==3, 1, 0)
+housing$four_room <- ifelse(housing$nb_rooms==4, 1, 0)
+housing$five_room <- ifelse(housing$nb_rooms==5, 1, 0)
+
+# Plotting bar graphs 
+
+# 1 room apartment 
+one_room <- ggplot(data=housing, aes(x=seasonality, y=one_room, fill = seasonality)) +
+  ggtitle("Single Room Apartments Sales by Seasons")+
+  geom_bar(stat = "identity")+
+  labs(x = "Seasonality", y = "Count")+
+  scale_x_discrete(labels = c("Winter", "Spring", "Summer", "Autumn")) +
+  facet_grid(. ~ year)+
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+one_room
+
+# 2 room apartments 
+two_rooms <- ggplot(data=housing, aes(x=seasonality, y=two_room, fill = seasonality)) +
+  ggtitle("Two Room Apartments Sales by Seasons")+
+  geom_bar(stat = "identity")+
+  labs(x = "Seasonality", y = "Count")+
+  scale_x_discrete(labels = c("Winter", "Spring", "Summer", "Autumn")) +
+  facet_grid(. ~ year)+
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+two_rooms
+
+# 3 room apartments
+three_room <- ggplot(data=housing, aes(x=seasonality, y=three_room, fill = seasonality)) +
+  ggtitle("Three Room Apartments Sales by Seasons")+
+  geom_bar(stat = "identity")+
+  labs(x = "Seasonality", y = "Count")+
+  scale_x_discrete(labels = c("Winter", "Spring", "Summer", "Autumn")) +
+  facet_grid(. ~ year)+
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+three_room
+
+# 4 room apartments
+four_room <- ggplot(data=housing, aes(x=seasonality, y=four_room, fill = seasonality)) +
+  ggtitle("Foor Room Apartments Sales by Seasons")+
+  geom_bar(stat = "identity")+
+  labs(x = "Seasonality", y = "Count")+
+  scale_x_discrete(labels = c("Winter", "Spring", "Summer", "Autumn")) +
+  facet_grid(. ~ year)+
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+four_room
+
+# 5 room apartments 
+five_room <- ggplot(data=housing, aes(x=seasonality, y=five_room, fill = seasonality)) +
+  ggtitle("Five Room Apartments Sales by Seasons")+
+  geom_bar(stat = "identity")+
+  labs(x = "Seasonality", y = "Count")+
+  scale_x_discrete(labels = c("Winter", "Spring", "Summer", "Autumn")) +
+  facet_grid(. ~ year)+
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+five_room
+
+rm(one_room, two_room, three_room, four_room, five_room)
+
+###################################################################################
+# Exercise 3
+###################################################################################
+
+# Detecting outliers 
+mean=mean(housing$price)
+std=sd(housing$price)
+tmin=mean-(3*std)
+tmax=mean+(3*std)
+tmin
+tmax
+rm(mean, std, tmax, tmin)
+
+# Plotting linegraph withough outliers 
+E3<-ggplot(subset(housing, price<=21389.87), aes(x=distance, y=price)) +
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+
+###################################################################################
+# Exercise 4
+###################################################################################
+
+model2 <- lm(price~distance+size+nb_rooms, data = housing)
+summary(model2)
+model4 <- lm(logprice~distance+size+nb_rooms, data=housing)
+summary(model4)
+
+# R squared for the non-logged model is 0.09, the R squared for the logged model 
+# is 0.24 showing that the convex model is a better fit to the regression line 
+
+
+###################################################################################
+# Exercise 5
+###################################################################################
+
+housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
+                          housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
+                          housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
+                          housing$codeinsee=="78551" | housing$codeinsee=="78650" | housing$codeinsee=="78146" |
+                          housing$codeinsee=="92063" | housing$codeinsee=="92050" | housing$codeinsee=="92062" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" | 
+                          housing$codeinsee=="95127" | housing$codeinsee=="95127" | housing$codeinsee=="95127" |, 1, 0)
