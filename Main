@@ -165,7 +165,7 @@ summary(model4)
 # Exercise 5
 ###################################################################################
 
-# RER A
+# Creating train stop dummy variable
 housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" | housing$codeinsee=="78172" |
                           housing$codeinsee=="78005" | housing$codeinsee=="78498" | housing$codeinsee=="78551" |
                           housing$codeinsee=="78358" | housing$codeinsee=="78586" | housing$codeinsee=="78311" |
@@ -177,20 +177,14 @@ housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" 
                           housing$codeinsee=="94015" | housing$codeinsee=="93051" | housing$codeinsee=="77083" |
                           housing$codeinsee=="77337" | housing$codeinsee=="77258" | housing$codeinsee=="77468" |
                           housing$codeinsee=="77058" | housing$codeinsee=="77307" | housing$codeinsee=="77449" |
-                          housing$codeinsee=="77111" | 
-                          
-  RER B 
-                          housing$codeinsee=="77291" | housing$codeinsee=="93073" | housing$codeinsee=="93078" |
-                          housing$codeinsee=="93071" | housing$codeinsee=="77294" | housing$codeinsee=="93005" |
-                          housing$codeinsee=="93007" | housing$codeinsee=="93029" | housing$codeinsee=="93013" |
-                          housing$codeinsee=="93027" | housing$codeinsee=="93066" | housing$codeinsee=="94037" |
-                          housing$codeinsee=="94003" | housing$codeinsee=="94016" | housing$codeinsee=="92014" |
-                          housing$codeinsee=="92071" | housing$codeinsee=="92002" | housing$codeinsee=="91377" |
-                          housing$codeinsee=="91477" | housing$codeinsee=="91471" | housing$codeinsee=="91122" |
-                          housing$codeinsee=="91272" | housing$codeinsee=="78575"                       
-
-
-  RER C 
+                          housing$codeinsee=="77111" | housing$codeinsee=="77291" | housing$codeinsee=="93073" | 
+                          housing$codeinsee=="93078" | housing$codeinsee=="93071" | housing$codeinsee=="77294" | 
+                          housing$codeinsee=="93005" | housing$codeinsee=="93007" | housing$codeinsee=="93029" | 
+                          housing$codeinsee=="93013" | housing$codeinsee=="93027" | housing$codeinsee=="93066" | 
+                          housing$codeinsee=="94037" | housing$codeinsee=="94003" | housing$codeinsee=="94016" | 
+                          housing$codeinsee=="92014" | housing$codeinsee=="92071" | housing$codeinsee=="92002" | 
+                          housing$codeinsee=="91377" | housing$codeinsee=="91477" | housing$codeinsee=="91471" | 
+                          housing$codeinsee=="91122" | housing$codeinsee=="91272" | housing$codeinsee=="78575" |                       
                           housing$codeinsee=="95500" | housing$codeinsee=="95572" | housing$codeinsee=="95488" |
                           housing$codeinsee=="95424" | housing$codeinsee=="95051" | housing$codeinsee=="95252" |
                           housing$codeinsee=="95219" | housing$codeinsee=="95203" | housing$codeinsee=="95555" |
@@ -207,9 +201,7 @@ housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" 
                           housing$codeinsee=="91103" | housing$codeinsee=="91457" | housing$codeinsee=="91021" |
                           housing$codeinsee=="91207" | housing$codeinsee=="91105" | housing$codeinsee=="91540" |
                           housing$codeinsee=="91593" | housing$codeinsee=="91200" | housing$codeinsee=="91376" | 
-                          housing$codeinsee=="91330" | housing$codeinsee=="91132" | housing$codeinsee=="91226" |,
-                          
-RER D 
+                          housing$codeinsee=="91330" | housing$codeinsee=="91132" | housing$codeinsee=="91226" |
                           housing$codeinsee=="60175" | housing$codeinsee=="60141" | housing$codeinsee=="60482" |
                           housing$codeinsee=="95250" | housing$codeinsee=="95351" | housing$codeinsee=="95280" |
                           housing$codeinsee=="95019" | housing$codeinsee=="95268" | housing$codeinsee=="95585" |
@@ -225,9 +217,11 @@ RER D
                           housing$codeinsee=="77288" | housing$codeinsee=="91386" | housing$codeinsee=="91045" |
                           housing$codeinsee=="91047" | housing$codeinsee=="91232" | housing$codeinsee=="91099" | 
                           housing$codeinsee=="91359" | housing$codeinsee=="91121" | housing$codeinsee=="91069" |
-
-  RER E 
                           housing$codeinsee=="93055" | housing$codeinsee=="93053" | housing$codeinsee=="93010" |
                           housing$codeinsee=="93062" | housing$codeinsee=="93077" | housing$codeinsee=="93032" |
                           housing$codeinsee=="77108" | housing$codeinsee=="93064" | housing$codeinsee=="94052" |
-                          housing$codeinsee=="94058" | housing$codeinsee=="94017"|,  
+                          housing$codeinsee=="94058" | housing$codeinsee=="94017", 1, 0)
+                          
+housing$post <- substr(housing$codeinsee,start = 1,stop=2)  
+housing$tstop[(housing$post==75)]<-1
+housing$post <- NULL
