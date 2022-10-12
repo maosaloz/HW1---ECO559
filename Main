@@ -35,6 +35,8 @@ rm(housing_price_paris_region)
 model1 <- lm(price~distance, data = housing)
 summary(model1)
 model2 <- lm(price~distance+size+nb_rooms, data = housing)
+model2 <- lm(price~distance+size+nb_rooms+distance*nb_rooms, data = housing)
+
 summary(model2)
 
 # Logging housing price 
