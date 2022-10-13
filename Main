@@ -1,6 +1,5 @@
-# 1. Plots for (NUMBER 1) 
-# 2. each department and number of rooms plot for (NUMBER 3) 
-# 3. prove that price distance gradient is convex (NUMBER 4)
+ 
+# 1. prove that price distance gradient is convex (NUMBER 4)
 
 
 ### Homework 1 ###
@@ -13,6 +12,7 @@ install.packages("maps")
 install.packages("EnvStats")
 install.packages("lmtest")
 install.packages("dplyr")
+install.packages("stargazer")
 
 library(haven)
 library(tidyverse)
@@ -21,6 +21,7 @@ library(ggplot2)
 library(EnvStats)
 library(lmtest)
 library(dplyr)
+library(stargazer)
 
 
 # Download File 
@@ -61,12 +62,9 @@ plot_rooms
 
 
 # Non-logged regression
-model1 <- lm(price~distance, data = housing)
+model1 <- lm(distance~price, data = housing)
 summary(model1)
 model2 <- lm(distance~price+size+nb_rooms, data = housing)
-
-model2 <- lm(distance~price+size+nb_rooms+distance*nb_rooms, data = housing)
-
 summary(model2)
 
 # Logging housing price 
@@ -80,10 +78,19 @@ housing$logdistance <- as.numeric(housing$logdistance)
 housing$logdistance[is.infinite(housing$logdistance)]<-NA
 
 # Logged Regressions
-model3 <- lm(logdistance~price, data = housing)
+model3 <- lm(logdistance~logprice, data = housing)
 summary(model3)
-model4 <- lm(logdistance~price+size+nb_rooms, data=housing)
+model4 <- lm(logdistance~logprice+size+nb_rooms, data=housing)
 summary(model4)
+
+stargazer(model1, model2, model3, model4,
+          title = "Exercise 1", 
+          dep.var.caption = "Distance Variable", 
+          covariate.labels = c("Price", "Size", "Number of Rooms", "Price Logged", "Intercept"), 
+          notes.label = "Significance Levels", 
+          type = "html", 
+          out = "~/Documents/Education/exercise_one.htm")
+
 rm(model1, model2, model3, model4)
 
 
@@ -188,6 +195,142 @@ E3<-ggplot(subset(housing, price<=21389.87), aes(x=distance, y=price)) +
   theme_classic()
 E3
 
+# price-distance gradient by bedroom 
+one_bedroom <- subset(housing, nb_rooms==1, select = c(price, distance))
+two_bedroom <- subset(housing, nb_rooms==2, select = c(price, distance))
+three_bedroom <- subset(housing, nb_rooms==3, select = c(price, distance))
+four_bedroom <- subset(housing, nb_rooms==4, select = c(price, distance))
+five_bedroom <- subset(housing, nb_rooms==5, select = c(price, distance))
+
+
+# One bedroom 
+E3<-ggplot(subset(one_bedroom, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("One Bedroom")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Two Bedroom
+E3<-ggplot(subset(two_bedroom, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Two Bedroom")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Thee Bedroom 
+E3<-ggplot(subset(three_bedroom, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Three Bedroom")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Four Bedroom 
+E3<-ggplot(subset(four_bedroom, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Four Bedroom")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Five Bedroom
+E3<-ggplot(subset(five_bedroom, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Five Bedroom")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# price-distance gradient department 
+housing$post <- substr(housing$codeinsee,start = 1,stop=2) 
+
+paris <- subset(housing, post==75, select = c(price, distance))
+marne <- subset(housing, post==77, select = c(price, distance))
+yvelines <- subset(housing, post==78, select = c(price, distance))
+essonne <- subset(housing, post==91, select = c(price, distance))
+seine <- subset(housing, post==92, select = c(price, distance))
+denis <- subset(housing, post==93, select = c(price, distance))
+val_de_marne <- subset(housing, post==94, select = c(price, distance))
+oise <- subset(housing, post==95, select = c(price, distance))
+
+# Paris region 
+E3<-ggplot(subset(paris, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Paris")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Seine et Marne region 
+E3<-ggplot(subset(marne, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Seine et Marne")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Yvelines region 
+E3<-ggplot(subset(yvelines, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Yvelines")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Essonne region 
+E3<-ggplot(subset(essonne, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Essonne")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Hauts-de-Seine region 
+E3<-ggplot(subset(seine, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Hauts-de-Seine")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Seine-Saint Denis region 
+E3<-ggplot(subset(denis, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Seine-Saint Denis")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Val-de-Marne region 
+E3<-ggplot(subset(val_de_marne, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Val-de-Marne")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
+
+# Val-d'Oise Denis region 
+E3<-ggplot(subset(oise, price<=21389.87), aes(x=distance, y=price)) +
+  ggtitle("Val-d'Oise")+
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+E3
 
 ###################################################################################
 # Exercise 4
@@ -271,3 +414,11 @@ model5 <- lm(price~distance+size+nb_rooms+tstop, data = housing)
 summary(model5)
 model6 <- lm(logprice~distance+size+nb_rooms+tstop, data=housing)
 summary(model6)
+
+stargazer(model5, model6,
+          title = "Exercise 5", 
+          dep.var.caption = "Price", 
+          covariate.labels = c("Distance", "Size", "Number of Rooms", "Municipality with Train", "Intercept"), 
+          notes.label = "Significance Levels", 
+          type = "html", 
+          out = "~/Documents/Education/exercise_five.htm")
