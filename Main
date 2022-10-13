@@ -3,7 +3,7 @@
 # 3. prove that price distance gradient is convex (NUMBER 4)
 
 
-                                ### Homework 1 ###
+### Homework 1 ###
 
 #Install Packages 
 install.packages("haven")
@@ -12,6 +12,7 @@ install.packages("ggplot")
 install.packages("maps")
 install.packages("EnvStats")
 install.packages("lmtest")
+install.packages("dplyr")
 
 library(haven)
 library(tidyverse)
@@ -19,6 +20,7 @@ library(maps)
 library(ggplot2)
 library(EnvStats)
 library(lmtest)
+library(dplyr)
 
 
 # Download File 
@@ -26,16 +28,44 @@ housing_price_paris_region <- read_dta("housing_price_paris_region.dta")
 housing <- housing_price_paris_region
 rm(housing_price_paris_region)
 
+sample1 <- sample_n(housing,50000)
+sample1 
+
 
 ###################################################################################
 # Exercise 1 
 ###################################################################################
 
+#Plots
+
+plot_price<-ggplot(subset(housing, price<=21389.87), aes(x=distance, y=price)) +
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+plot_price
+
+plot_size<-ggplot(subset(housing, price<=21389.87), aes(x=distance, y=size)) +
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+plot_size
+
+plot_rooms<-ggplot(subset(housing, price<=21389.87), aes(x=distance, y=nb_rooms)) +
+  geom_point()+
+  geom_smooth()+
+  scale_color_grey() + 
+  theme_classic()
+plot_rooms
+
+
 # Non-logged regression
 model1 <- lm(price~distance, data = housing)
 summary(model1)
-model2 <- lm(price~distance+size+nb_rooms, data = housing)
-model2 <- lm(price~distance+size+nb_rooms+distance*nb_rooms, data = housing)
+model2 <- lm(distance~price+size+nb_rooms, data = housing)
+
+model2 <- lm(distance~price+size+nb_rooms+distance*nb_rooms, data = housing)
 
 summary(model2)
 
@@ -44,10 +74,15 @@ housing$logprice <- log(housing$price)
 housing$logprice <- as.numeric(housing$logprice)
 housing$logprice[is.infinite(housing$logprice)]<-NA
 
+# Logging housing distance
+housing$logdistance <- log(housing$distance)
+housing$logdistance <- as.numeric(housing$logdistance)
+housing$logdistance[is.infinite(housing$logdistance)]<-NA
+
 # Logged Regressions
-model3 <- lm(logprice~distance, data = housing)
+model3 <- lm(logdistance~price, data = housing)
 summary(model3)
-model4 <- lm(logprice~distance+size+nb_rooms, data=housing)
+model4 <- lm(logdistance~price+size+nb_rooms, data=housing)
 summary(model4)
 rm(model1, model2, model3, model4)
 
@@ -227,7 +262,7 @@ housing$tstop <- ifelse(housing$codeinsee=="95127" | housing$codeinsee=="95450" 
                           housing$codeinsee=="93062" | housing$codeinsee=="93077" | housing$codeinsee=="93032" |
                           housing$codeinsee=="77108" | housing$codeinsee=="93064" | housing$codeinsee=="94052" |
                           housing$codeinsee=="94058" | housing$codeinsee=="94017", 1, 0)
-                          
+
 housing$post <- substr(housing$codeinsee,start = 1,stop=2)  
 housing$tstop[(housing$post==75)]<-1
 housing$post <- NULL
